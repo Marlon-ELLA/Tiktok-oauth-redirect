@@ -3,30 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirección TikTok - PanGabrielWeb</title>
+  <title>PanGabrielWeb - Inicio</title>
   <style>
-    body { font-family: Arial; background: #fafafa; text-align:center; padding:50px; }
-    .card { background:white; padding:30px; border-radius:8px; max-width:600px; margin:auto; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
-    code { background:#eee; padding:10px; display:block; margin:20px 0; word-break: break-all; }
-    .btn { background:#fe2c55; color:white; padding:10px 20px; border-radius:5px; text-decoration:none; }
+    body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 0; text-align: center; }
+    header { background: #fe2c55; color: #fff; padding: 20px; }
+    header h1 { margin: 0; }
+    main { padding: 40px 20px; }
+    .card { background: white; padding: 30px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+    .btn { display:inline-block; margin-top: 20px; padding:15px 25px; background:#fe2c55; color:#fff; border-radius:5px; font-weight:bold; text-decoration:none; transition: background 0.3s; }
+    .btn:hover { background:#d82046; }
+    footer { margin-top: 50px; padding:20px; background:#333; color:white; font-size:14px; }
+    footer a { color: #fe2c55; margin: 0 10px; text-decoration: none; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>¡Conexión con TikTok exitosa 🎉!</h1>
-    <p>Copia este código de autorización y úsalo en Postman o tu backend para obtener el <strong>access_token</strong>:</p>
-    <code id="authCode">Cargando...</code>
-    <p><a href="home.html" class="btn">Volver al inicio</a></p>
-  </div>
+  <header>
+    <h1>PanGabrielWeb</h1>
+    <p>Conecta tu cuenta de TikTok y lleva tus estadísticas a Excel 📊</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Bienvenido 👋</h2>
+      <p>Autoriza PanGabrielWeb con tu cuenta de TikTok para consultar tus métricas de videos.</p>
+      
+      <!-- Botón de login con TikTok -->
+      <a id="loginButton" href="#" class="btn">Iniciar sesión con TikTok</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 PanGabrielWeb</p>
+    <a href="privacy.html">Política de Privacidad</a> | 
+    <a href="terms.html">Términos de Servicio</a>
+  </footer>
+
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-    const box = document.getElementById("authCode");
-    if(code){
-      box.textContent = code;
-    } else {
-      box.textContent = "No se encontró código en la URL 😕";
-    }
+    const clientKey = "sbawsacv6ykpawiejc";
+    const redirectUri = encodeURIComponent("https://marlon-ella.github.io/Tiktok-oauth-redirect/redirect.html");
+    const scope = "user.info.stats,video.list";
+    const state = "xyz123seg";
+
+    const authUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
+
+    document.getElementById("loginButton").setAttribute("href", authUrl);
   </script>
 </body>
 </html>
