@@ -1,48 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok OAuth Redirect</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; color: #333; }
-        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
-        h1 { color: #fe2c55; }
-        code { background-color: #eee; padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 10px; }
-        .error { color: red; font-weight: bold; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirección TikTok - PanGabrielWeb</title>
+  <style>
+    body { font-family: Arial; background: #fafafa; text-align:center; padding:50px; }
+    .card { background:white; padding:30px; border-radius:8px; max-width:600px; margin:auto; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+    code { background:#eee; padding:10px; display:block; margin:20px 0; word-break: break-all; }
+    .btn { background:#fe2c55; color:white; padding:10px 20px; border-radius:5px; text-decoration:none; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Redirección de TikTok OAuth</h1>
-        <p>Esperando el código de autorización...</p>
-        <div id="result"></div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            const error = urlParams.get('error');
-            const resultDiv = document.getElementById('result');
-
-            if (code) {
-                resultDiv.innerHTML = `
-                    <p>¡Código de autorización recibido!</p>
-                    <p>Copia este código y úsalo para obtener tu Access Token:</p>
-                    <code>${code}</code>
-                    <p>Este código es válido por un corto tiempo.</p>
-                `;
-            } else if (error) {
-                resultDiv.innerHTML = `
-                    <p class="error">Error al obtener el código de autorización:</p>
-                    <code>${error}</code>
-                    <p>Descripción: ${urlParams.get('error_description') || 'No disponible'}</p>
-                `;
-            } else {
-                resultDiv.innerHTML = `<p>No se encontró ningún código de autorización en la URL.</p>`;
-            }
-        });
-    </script>
+  <div class="card">
+    <h1>¡Conexión con TikTok exitosa 🎉!</h1>
+    <p>Copia este código de autorización y úsalo en Postman o tu backend para obtener el <strong>access_token</strong>:</p>
+    <code id="authCode">Cargando...</code>
+    <p><a href="home.html" class="btn">Volver al inicio</a></p>
+  </div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const box = document.getElementById("authCode");
+    if(code){
+      box.textContent = code;
+    } else {
+      box.textContent = "No se encontró código en la URL 😕";
+    }
+  </script>
 </body>
 </html>
