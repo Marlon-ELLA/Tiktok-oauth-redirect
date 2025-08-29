@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirección TikTok - PanGabrielWeb</title>
+  <style>
+    body { font-family: Arial; background: #fafafa; text-align:center; padding:50px; }
+    .card { background:white; padding:30px; border-radius:8px; max-width:600px; margin:auto; box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+    code { background:#eee; padding:10px; display:block; margin:20px 0; word-break: break-all; }
+    .btn { background:#fe2c55; color:white; padding:10px 20px; border-radius:5px; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>¡Login con TikTok exitoso 🎉!</h1>
+    <p>Este es tu <strong>código de autorización</strong>:</p>
+    <code id="authCode">Cargando...</code>
+    <p>Copia este código y úsalo en tu servidor o en Postman para obtener el access_token.</p>
+    <a href="index.html" class="btn">Volver al inicio</a>
+  </div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    document.getElementById("authCode").textContent = code ? code : "⚠️ No se encontró ningún código.";
+  </script>
+</body>
+</html>
