@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PanGabrielWeb - Conecta tu TikTok</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 0; text-align: center; }
+    header { background: #fe2c55; color: #fff; padding: 20px; }
+    header h1 { margin: 0; }
+    main { padding: 40px 20px; }
+    .card { background: white; padding: 30px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+    .btn { display:inline-block; margin-top: 20px; padding:15px 25px; background:#fe2c55; color:#fff; border-radius:5px; font-weight:bold; text-decoration:none; transition: background 0.3s; }
+    .btn:hover { background:#d82046; }
+    footer { margin-top: 50px; padding:20px; background:#333; color:white; font-size:14px; }
+    footer a { color: #fe2c55; margin: 0 10px; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PanGabrielWeb</h1>
+    <p>Conecta tu cuenta de TikTok y lleva tus estadísticas a Excel fácilmente 📊</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Bienvenido 👋</h2>
+      <p>Autoriza PanGabrielWeb con tu cuenta de TikTok para consultar tus estadísticas de videos y exportarlas automáticamente a Excel.</p>
+      
+      <!-- Botón de login con TikTok -->
+      <a id="loginButton" href="#" class="btn">Iniciar sesión con TikTok</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 PanGabrielWeb</p>
+    <a href="privacy.html">Política de Privacidad</a> | 
+    <a href="terms.html">Términos de Servicio</a>
+  </footer>
+
+  <script>
+    // Parámetros de tu aplicación
+    const clientKey = "sbawsacv6ykpawiejc";
+    const redirectUri = encodeURIComponent("https://marlon-ella.github.io/Tiktok-oauth-redirect");
+    const scope = "user.info.stats,video.list";
+    const state = "xyz123seg";
+
+    // URL de autorización
+    const authUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
+
+    // Asignar al botón directamente
+    document.getElementById("loginButton").setAttribute("href", authUrl);
+  </script>
+</body>
+</html>
