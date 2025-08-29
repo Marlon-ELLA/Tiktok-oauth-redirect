@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TikTok OAuth Redirect</title>
-    <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; background-color: #f4f4f4; color: #333; }
-        .container { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
-        h1 { color: #fe2c55; }
-        code { background-color: #eee; padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 10px; }
-        .error { color: red; font-weight: bold; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PanGabrielWeb - Conecta tu TikTok</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 0; text-align: center; }
+    header { background: #fe2c55; color: #fff; padding: 20px; }
+    header h1 { margin: 0; }
+    main { padding: 40px 20px; }
+    .card { background: white; padding: 30px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1);}
+    .btn { display:inline-block; margin-top: 20px; padding:15px 25px; background:#fe2c55; color:#fff; border-radius:5px; font-weight:bold; text-decoration:none; transition: background 0.3s; }
+    .btn:hover { background:#d82046; }
+    footer { margin-top: 50px; padding:20px; background:#333; color:white; font-size:14px; }
+    footer a { color: #fe2c55; margin: 0 10px; text-decoration: none; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Redirección de TikTok OAuth</h1>
-        <p>Esperando el código de autorización...</p>
-        <div id="result"></div>
+  <header>
+    <h1>PanGabrielWeb</h1>
+    <p>Conecta tu cuenta de TikTok y lleva tus estadísticas a Excel fácilmente 📊</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Bienvenido 👋</h2>
+      <p>Autoriza PanGabrielWeb con tu cuenta de TikTok para consultar tus estadísticas de videos y exportarlas automáticamente a Excel.</p>
+      
+      <!-- Botón de login con TikTok -->
+      <a id="loginButton" href="#" class="btn">Iniciar sesión con TikTok</a>
     </div>
+  </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            const error = urlParams.get('error');
-            const resultDiv = document.getElementById('result');
+  <footer>
+    <p>&copy; 2025 PanGabrielWeb</p>
+    <a href="privacy.html">Política de Privacidad</a> | 
+    <a href="terms.html">Términos de Servicio</a>
+  </footer>
 
-            if (code) {
-                resultDiv.innerHTML = `
-                    <p>¡Código de autorización recibido!</p>
-                    <p>Copia este código y úsalo para obtener tu Access Token:</p>
-                    <code>${code}</code>
-                    <p>Este código es válido por un corto tiempo.</p>
-                `;
-            } else if (error) {
-                resultDiv.innerHTML = `
-                    <p class="error">Error al obtener el código de autorización:</p>
-                    <code>${error}</code>
-                    <p>Descripción: ${urlParams.get('error_description') || 'No disponible'}</p>
-                `;
-            } else {
-                resultDiv.innerHTML = `<p>No se encontró ningún código de autorización en la URL.</p>`;
-            }
-        });
-    </script>
+  <script>
+    // Parámetros de tu aplicación
+    const clientKey = "sbawsacv6ykpawiejc";
+    const redirectUri = encodeURIComponent("https://marlon-ella.github.io/Tiktok-oauth-redirect");
+    const scope = "user.info.stats,video.list";
+    const state = "xyz123seg";
+
+    // URL de autorización
+    const authUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
+
+    // Asignar al botón directamente
+    document.getElementById("loginButton").setAttribute("href", authUrl);
+  </script>
 </body>
 </html>
