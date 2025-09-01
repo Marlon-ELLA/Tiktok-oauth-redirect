@@ -39,14 +39,16 @@
   </footer>
 
   <script>
-    const clientKey = "sbawsacv6ykpawiejc";
-    const redirectUri = encodeURIComponent("https://marlon-ella.github.io/Tiktok-oauth-redirect/redirect.html");
-    const scope = "user.info.stats,video.list";
-    const state = "xyz123seg";
-
-    const authUrl = `https://www.tiktok.com/v2/auth/authorize/?client_key=${clientKey}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}&state=${state}`;
-
-    document.getElementById("loginButton").setAttribute("href", authUrl);
+    // Conecta el frontend con el backend en Vercel para obtener la URL de login
+    fetch('https://tiktok-oauth-redirect.vercel.app/api/login-url')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("loginButton").setAttribute("href", data.url);
+      })
+      .catch(() => {
+        document.getElementById("loginButton").setAttribute("href", "#");
+        document.getElementById("loginButton").textContent = "Error al conectar con TikTok";
+      });
   </script>
 </body>
 </html>
