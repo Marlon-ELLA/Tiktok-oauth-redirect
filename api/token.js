@@ -28,8 +28,13 @@ module.exports = async (req, res) => {
         redirect_uri
       })
     });
-    const data = await response.json();
-    res.status(200).json(data);
+    const text = await response.text();
+    try {
+      const data = JSON.parse(text);
+      res.status(200).json(data);
+    } catch (jsonErr) {
+      res.status(200).send(text); // Si no es JSON, muestra el texto plano
+    }
   } catch (err) {
     res.status(500).json({ error: 'Error al obtener el token', details: err.message });
   }
