@@ -19,8 +19,8 @@ module.exports = async (req, res) => {
   try {
     const response = await fetch('https://open.tiktokapis.com/v2/oauth/token', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
         client_key,
         client_secret,
         code,
