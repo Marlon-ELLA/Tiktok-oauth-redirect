@@ -17,12 +17,53 @@
     <p>Este es tu <strong>código de autorización</strong>:</p>
     <code id="authCode">Cargando...</code>
     <p>Copia este código y úsalo en tu servidor o en Postman para obtener el access_token.</p>
+    <div id="tokenSection" style="margin-top:30px;">
+      <h2>Access Token de TikTok</h2>
+      <button id="getTokenBtn" class="btn">Obtener access_token automáticamente</button>
+      <code id="accessToken">Esperando acción...</code>
+    </div>
     <a href="index.html" class="btn">Volver al inicio</a>
   </div>
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
     document.getElementById("authCode").textContent = code ? code : "⚠️ No se encontró ningún código.";
+
+    // Credenciales fijas para la prueba
+    const client_key = "sbawsacv6ykpawiejc";
+    const client_secret = "mq9NlqgSrkqcnmLAiWRqMWRTltc9Zsyk";
+    const redirect_uri = "https://marlon-ella.github.io/Tiktok-oauth-redirect/redirect.html";
+
+    document.getElementById("getTokenBtn").onclick = async function() {
+      if (!code) {
+        document.getElementById("accessToken").textContent = "No hay code para obtener el token.";
+        return;
+      }
+      document.getElementById("accessToken").textContent = "Solicitando token...";
+      try {
+        const res = await fetch("https://open.tiktokapis.com/v2/oauth/token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: new URLSearchParams({
+            client_key,
+            client_secret,
+            code,
+            grant_type: "authorization_code",
+            redirect_uri
+          })
+        });
+        const data = await res.json();
+        if (data.access_token) {
+          document.getElementById("accessToken").textContent = data.access_token;
+        } else {
+          document.getElementById("accessToken").textContent = "Error: " + (data.error_description || JSON.stringify(data));
+        }
+      } catch (err) {
+        document.getElementById("accessToken").textContent = "Error de red o CORS: " + err;
+      }
+    };
   </script>
 </body>
 </html>
